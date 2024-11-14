@@ -1,0 +1,32 @@
+@import '../../variables.scss';
+
+.card {
+  display: flex;
+  gap: 10px;
+  width: 350px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bookmarkTitle {
+  font-size: 16px;
+  -webkit-box-orient: vertical;
+  font-weight: 400;
+  height: 40px;
+  overflow: hidden;
+}
+
+.bookmarkChapters {
+  font-size: 14px;
+  color: $text;
+}
+
+.bookmarkRating {
+  font-size: 18px;
+  color: $text;
+  display: flex;
+}

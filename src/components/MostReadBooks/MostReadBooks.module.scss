@@ -1,0 +1,44 @@
+@import '../../variables.scss';
+
+.wrapper {
+  margin-top: 40px;
+  background-color: $secondary-color;
+  color: #fff;
+  padding-bottom: 50px;
+}
+
+.flexWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 30px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  background: #fcf8ed17;
+  border: none;
+  border-radius: 32px;
+  color: #fff;
+  height: 32px;
+  transition: all .2s;
+  padding: 10px;
+
+  &:hover {
+    background-color: $button;
+    color: $main-light;
+    cursor: pointer;
+  }
+}
+
+.active {
+  background-color: $button;
+  color: $main-light;
+}
+
+
+
+

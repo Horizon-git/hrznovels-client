@@ -1,0 +1,107 @@
+@import '../../variables.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  margin-block: 40px 60px;
+  min-height: calc(100vh - 240px);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.filterWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.input {
+  outline: none;
+  border: none;
+  background: #f4f7fe1a;
+  border: none;
+  color: $text;
+  font-weight: 200;
+  height: 40px;
+  padding: 10px;
+  width: 100%;
+  font-size: 18px;
+}
+
+.button {
+  background: #fcf8ed17;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  transition: all .2s;
+  padding: 10px;
+  font-size: 16px;
+
+  &:hover {
+    background-color: $button;
+    color: $main-light;
+    cursor: pointer;
+  }
+}
+
+.books {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.paginationRoot {
+  background-color: $main-light;
+  color: #fff;
+}
+
+.paginationSelected{
+  color: $main-color;
+}
+
+.filterMenu {
+  background-color: $secondary-color;
+  margin-top: 30px;
+  padding: 30px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  background: #fcf8ed17;
+  border: none;
+  border-radius: 32px;
+  color: #fff;
+  height: 32px;
+  transition: all .2s;
+  padding: 10px;
+
+  &:hover {
+    background-color: $button;
+    color: $main-light;
+    cursor: pointer;
+  }
+}
+
+.active {
+  background-color: $button;
+  color: $main-light;
+}
+
+.filterSpan {
+  font-size: 18px;
+  margin-block: 10px;
+  font-weight: 400;
+}
+
+.tagsBlock {
+  margin-top: 30px;
+}

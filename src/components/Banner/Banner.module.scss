@@ -1,0 +1,50 @@
+@import '../../variables.scss';
+
+.banner {
+  margin-top: 20px;
+  color: #fff;
+  background-color: $secondary-color;
+  padding: 30px 15px;
+}
+
+.preview {
+  display: flex;
+  gap: 20px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.content {
+  max-width: 65%;
+}
+
+.image {
+  align-self: center;
+}
+
+.description {
+  color: $text;
+  height: 200px;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+}
+
+.tag {
+  color: $text;
+  background-color: $main-light;
+}

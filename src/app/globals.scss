@@ -1,0 +1,14 @@
+@import '../reset.scss';
+@import '../variables.scss';
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $main-color;
+}

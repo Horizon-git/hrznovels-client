@@ -1,0 +1,12 @@
+@import '../../variables.scss';
+
+.chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  color: $text;
+  background-color: $main-light;
+}

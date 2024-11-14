@@ -1,0 +1,66 @@
+@import '../../variables.scss';
+
+.card {
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bookTitle {
+  font-size: 16px;
+  -webkit-box-orient: vertical;
+  font-weight: 400;
+  height: 40px;
+  overflow: hidden;
+  color: $neutral-50;
+}
+
+.bookChapters {
+  font-size: 14px;
+  color: $text;
+}
+
+.bookLatestUpdate {
+  font-size: 15px;
+  color: $neutral-300;
+}
+
+.bookImage {
+  border-radius: 5px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  margin-bottom: 25px;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.customPrev, .customNext {
+  background: #fcf8ed17;
+  border: none;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 23px;
+  height: 32px;
+  width: 32px;
+  transition: all .2s;
+
+  &:hover {
+    background-color: $button;
+    color: $main-light;
+    cursor: pointer;
+  }
+}

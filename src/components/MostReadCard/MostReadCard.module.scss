@@ -1,0 +1,32 @@
+@import "../../variables.scss";
+
+.card {
+  display: flex;
+  gap: 10px;
+  width: 350px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cardId {
+  font-size: 21px;
+  color: $button;
+  font-weight: 600;
+}
+
+.tagsWrapper {
+  color: $text;
+}
+
+.cardRating {
+  display: flex;
+}
+
+.cardTitle {
+  font-weight: 400;
+  height: 40px;
+}

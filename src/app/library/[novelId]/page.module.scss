@@ -1,0 +1,137 @@
+@import '../../../variables.scss';
+
+
+.main {
+  min-height: calc(100vh - 240px);
+}
+
+.mainInfo {
+  color: #fff;
+  display: flex;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.chipSpan {
+  margin-bottom: 7px;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+.info {
+  background-color: $main-light;
+  color: $text;
+  padding: 20px;
+  margin-top: 60px;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+.infoTitle {
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.infoDescription {
+  max-height: 400px;
+}
+
+.bottomWrapper {
+  margin-top: 10px;
+}
+
+.bottomWrapper {
+  color: #fff;
+}
+
+.bookTabContainer {
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+  padding-block: 20px;
+}
+
+.tab {
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: $button;
+}
+
+.active {
+  color: $button;
+}
+
+.bookTabContent {
+  height: 600px;
+  overflow: auto;
+  margin-top: 30px;
+}
+
+.chapter {
+  padding: 20px 24px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: $secondary-color;
+}
+
+.chapter:nth-child(odd) {
+  background: $main-light;
+}
+
+.chapterTitle {
+  width: 100%;
+}
+
+.reviewCard {
+  padding-block: 15px;
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.userInfo {
+  display: flex;
+  gap: 20px;
+  width: 25%;
+  align-items: flex-start;
+}
+
+.bookRating {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ratingWithCount {
+  display: flex;
+  gap: 2px;
+}
+
+.reviewCreatedAt {
+  color: $text;
+}
+
+.reviewTitle {
+  margin-bottom: 5px;
+}
+
+.reviewComment {
+  color: $text;
+}

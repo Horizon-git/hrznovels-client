@@ -1,0 +1,70 @@
+@import '../../variables.scss';
+
+.header {
+  color: #fff;
+  background-color: $secondary-color;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+  align-items: center;
+  font-size: 18px;
+}
+
+.title {
+  font-size: 28px;
+}
+
+.nav {
+  margin-inline: 10px;
+  display: flex;
+  gap: 15px;
+}
+
+.link {
+  font-weight: 600;
+  color: #fff;
+  transition: all .3s;
+
+  &:hover {
+    color: $button;
+  }
+}
+
+.drawerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16px;
+  color: #fff;
+  background-color: $secondary-color;
+  height: 100%;
+  padding: 60px 20px;
+}
+
+.list {
+  width: 175px;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.navLink {
+  color: #fff;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $button; // измените на желаемый цвет при наведении
+  }
+}
+
+.listItemText {
+  text-align: center;
+}
+
+.divider {
+  border-color: $text;
+}

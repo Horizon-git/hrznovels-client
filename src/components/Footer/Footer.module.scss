@@ -1,0 +1,30 @@
+@import '../../variables.scss';
+
+.footer {
+  color: #fff;
+  background-color: $main-color;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 35px;
+  align-items: center;
+  font-size: 18px;
+  gap: 15px;
+}
+
+.title {
+  font-size: 28px;
+}
+
+.link {
+  font-weight: 600;
+  color: #fff;
+  transition: all .3s;
+
+  &:hover {
+    color: $button;
+  }
+}
+
+.copyright {
+  font-size: 14px;
+}
