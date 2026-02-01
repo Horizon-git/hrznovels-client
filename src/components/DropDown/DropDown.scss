@@ -1,0 +1,87 @@
+@import "../../variables.scss";
+
+.dropdown {
+  position: relative;
+
+  &__text {
+    color: $white;
+  }
+
+  &__current {
+    // font-family: "Mont", sans-serif;
+    font-weight: 500;
+    line-height: 21px;
+    color: $white;
+  }
+
+  &__list {
+    position: absolute;
+    top: 45px;
+
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 8px;
+    border-radius: 16px;
+
+    list-style: none;
+
+    // border: 1px solid $light-gray;
+    background-color: $button;
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.05);
+
+    &--visible {
+      display: flex;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 6px 12px;
+    width: 100%;
+    color: $white;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 21px;
+    transition: all .3s;
+    border-radius: 10px;
+
+    &:hover {
+      color: $neutral-50;
+      background-color: $neutral-800;
+    }
+  }
+}
+
+.button--dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 4px 10px;
+  background-color: $button;
+  transition: all .3s;
+  border-radius: 99px;
+  min-width: 140px;
+
+  // border: 1px solid $icons-color;
+
+  :last-child {
+    transition: transform 0.3s;
+  }
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(1.15);
+  }
+
+  &-focus {
+    &:focus {
+      border-color: $neutral-800;
+
+      :last-child {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

@@ -64,131 +64,119 @@ export default function Novel() {
   };
 
   return (
-    <section className={styles.main}>
-      <Container>
-        {bookDetails ? (
-          <>
-            <div className={styles.mainInfo}>
-              <Image
-                src="/images/image1.webp"
-                alt={bookDetails.name}
-                width={300}
-                height={400}
-              />
-              <div className={styles.right}>
-                <h1>{bookDetails.name}</h1>
-                <div className={styles.bookRating}>
-                  <div className={styles.ratingWithCount}>
-                    <RatingStars rating={averageRating} />
-                    <span>{`(${bookDetails.reviews.length})`}</span>
-                  </div>
-                  <span>{`Latest update: ${timeSince(
-                    latestChapterDate
-                  )}`}</span>
+    <Container>
+      {bookDetails ? (
+        <>
+          <div className={styles.mainInfo}>
+            <Image
+              src="/images/image1.webp"
+              alt={bookDetails.name}
+              width={300}
+              height={400}
+            />
+            <div className={styles.right}>
+              <h1>{bookDetails.name}</h1>
+              <div className={styles.bookRating}>
+                <div className={styles.ratingWithCount}>
+                  <RatingStars rating={averageRating} />
+                  <span>{`(${bookDetails.reviews.length})`}</span>
                 </div>
-                <div className={styles.genres}>
-                  <p className={styles.chipSpan}>Gengres:</p>
-                  <Chips names={bookDetails.genres} />
-                </div>
-                <div className={styles.tags}>
-                  <p className={styles.chipSpan}>Tags:</p>
-                  <Chips names={bookDetails.tags} />
-                </div>
-                <div className={styles.buttons}>
-                  <Button variant="contained" color="secondary">
-                    Read now
-                  </Button>
-                  <Button
-                    variant={isBookmarked ? "contained" : "outlined"}
-                    color="secondary"
-                    onClick={handleAddBookmark}
-                    startIcon={isBookmarked ? <CheckIcon /> : <BookmarkIcon />}
+                <span>{`Latest update: ${timeSince(latestChapterDate)}`}</span>
+              </div>
+              <div className={styles.genres}>
+                <p className={styles.chipSpan}>Gengres:</p>
+                <Chips names={bookDetails.genres} />
+              </div>
+              <div className={styles.tags}>
+                <p className={styles.chipSpan}>Tags:</p>
+                <Chips names={bookDetails.tags} />
+              </div>
+              <div className={styles.buttons}>
+                <Button variant="contained" color="secondary">
+                  Read now
+                </Button>
+                <Button
+                  variant={isBookmarked ? "contained" : "outlined"}
+                  color="secondary"
+                  onClick={handleAddBookmark}
+                  startIcon={isBookmarked ? <CheckIcon /> : <BookmarkIcon />}
+                >
+                  {isBookmarked ? "Added" : "Bookmark"}
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className={styles.info}>
+            <h2 className={styles.infoTitle}>Description</h2>
+            <p className={styles.infoDescription}>{bookDetails.description}</p>
+          </div>
+          <div className={styles.bottomWrapper}>
+            <div className={styles.bookTabContainer}>
+              <span
+                className={`${styles.tab} ${
+                  currentTab === Tab.Chapters ? styles.active : ""
+                }`}
+                onClick={() => setCurrentTab(Tab.Chapters)}
+              >{`Chapters (${bookDetails.chapters.length})`}</span>
+              <span
+                className={`${styles.tab} ${
+                  currentTab === Tab.Reviews ? styles.active : ""
+                }`}
+                onClick={() => setCurrentTab(Tab.Reviews)}
+              >{`Reviews (${bookDetails.reviews.length})`}</span>
+            </div>
+            {currentTab === Tab.Chapters ? (
+              <div className={styles.bookTabContent}>
+                {bookDetails.chapters.map((chapter) => (
+                  <Link
+                    key={chapter.id}
+                    href={`/library/${novelId}/${chapter.id}`}
+                    className={styles.chapter}
                   >
-                    {isBookmarked ? "Added" : "Bookmark"}
-                  </Button>
-                </div>
+                    <span
+                      className={styles.chapterTitle}
+                    >{`Chapter ${chapter.chapterNumber} ${chapter.title}`}</span>
+                    <span>{`${timeSince(chapter.createdAt)}`}</span>
+                  </Link>
+                ))}
               </div>
-            </div>
-            <div className={styles.info}>
-              <h2 className={styles.infoTitle}>Description</h2>
-              <p className={styles.infoDescription}>
-                {bookDetails.description}
-              </p>
-            </div>
-            <div className={styles.bottomWrapper}>
-              <div className={styles.bookTabContainer}>
-                <span
-                  className={`${styles.tab} ${
-                    currentTab === Tab.Chapters ? styles.active : ""
-                  }`}
-                  onClick={() => setCurrentTab(Tab.Chapters)}
-                >{`Chapters (${bookDetails.chapters.length})`}</span>
-                <span
-                  className={`${styles.tab} ${
-                    currentTab === Tab.Reviews ? styles.active : ""
-                  }`}
-                  onClick={() => setCurrentTab(Tab.Reviews)}
-                >{`Reviews (${bookDetails.reviews.length})`}</span>
-              </div>
-              {currentTab === Tab.Chapters ? (
-                <div className={styles.bookTabContent}>
-                  {bookDetails.chapters.map((chapter) => (
-                    <Link
-                      key={chapter.id}
-                      href={`/library/${novelId}/${chapter.id}`}
-                      className={styles.chapter}
-                    >
-                      <span
-                        className={styles.chapterTitle}
-                      >{`Chapter ${chapter.chapterNumber} ${chapter.title}`}</span>
-                      <span>{`${timeSince(chapter.createdAt)}`}</span>
-                    </Link>
+            ) : (
+              <>
+                {user && (
+                  <ReviewModal bookId={+novelId} bookTitle={bookDetails.name} />
+                )}
+                <div className={styles.reviewTabContent}>
+                  {[...bookDetails.reviews].reverse().map((review) => (
+                    <div key={review.id} className={styles.reviewCard}>
+                      <div className={styles.userInfo}>
+                        <Image
+                          src="/images/nopicture.webp"
+                          alt="user picture"
+                          width={60}
+                          height={60}
+                        />
+                        <span>{`@${review.user.username}`}</span>
+                      </div>
+                      <div className={styles.reviewContent}>
+                        <div className={styles.bookRating}>
+                          <RatingStars rating={review.rating} />
+                          <span
+                            className={styles.reviewCreatedAt}
+                          >{`about ${timeSince(review.createdAt)}`}</span>
+                        </div>
+                        <p className={styles.reviewTitle}>{review.title}</p>
+                        <p className={styles.reviewComment}>{review.comment}</p>
+                      </div>
+                    </div>
                   ))}
                 </div>
-              ) : (
-                // TODO: give review button and modal
-                <>
-                  {user && (
-                    <ReviewModal
-                      bookId={+novelId}
-                      bookTitle={bookDetails.name}
-                    />
-                  )}
-                  <div className={styles.reviewTabContent}>
-                    {[...bookDetails.reviews].reverse().map((review) => (
-                      <div key={review.id} className={styles.reviewCard}>
-                        <div className={styles.userInfo}>
-                          <Image
-                            src="/images/nopicture.webp"
-                            alt="user picture"
-                            width={60}
-                            height={60}
-                          />
-                          <span>{`@${review.user.username}`}</span>
-                        </div>
-                        <div className={styles.reviewContent}>
-                          <div className={styles.bookRating}>
-                            <RatingStars rating={review.rating} />
-                            <span
-                              className={styles.reviewCreatedAt}
-                            >{`about ${timeSince(review.createdAt)}`}</span>
-                          </div>
-                          <p className={styles.reviewTitle}>{review.title}</p>
-                          <p className={styles.reviewComment}>
-                            {review.comment}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          </>
-        ) : (
-          <p>Novel not found</p>
-        )}
-      </Container>
-    </section>
+              </>
+            )}
+          </div>
+        </>
+      ) : (
+        <p>Novel not found</p>
+      )}
+    </Container>
   );
 }

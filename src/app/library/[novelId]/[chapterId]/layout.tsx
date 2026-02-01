@@ -1,15 +1,15 @@
+import Container from "@/components/Container/Container";
 import type { Metadata } from "next";
-import styles from "./page.module.scss";
 
 export const metadata: Metadata = {
-  title: "Novel",
+  title: "Chapter",
   description: "",
 };
 
-export default function NovelLayout({
+export default function ChapterLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <section className={styles.main}>{children}</section>;
+  return <>{children}</>;
 }

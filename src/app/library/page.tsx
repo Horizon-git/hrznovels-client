@@ -17,19 +17,21 @@ import {
   useRef,
   useState,
 } from "react";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { BookCard } from "@/types/Book";
 import Pagination from "@mui/material/Pagination";
 import { getSearchWith } from "@/helpers/searchWith";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchBooks } from "@/features/booksSlice";
+import { Sort, sortObj } from "@/types/Sort";
+import { DropDown } from "@/components/DropDown/DropDown";
 
 const ITEMS_PER_PAGE = 5;
 
 export default function Library() {
   const router = useRouter();
-  const { books, loading, error } = useAppSelector(state => state.books)
+  const { books, loading, error } = useAppSelector((state) => state.books);
   const dispatch = useAppDispatch();
 
   const searchParams = useSearchParams();
@@ -37,6 +39,7 @@ export default function Library() {
   const searchParam = searchParams.get("search") || "";
   const genreParam = searchParams.get("genre") || "All";
   const tagsParam = searchParams.get("tags") || "";
+  const getSort = searchParams.get("sort") || "";
 
   const [currentBooks, setCurrentBooks] = useState<BookCard[]>([]);
   const [pageCount, setPageCount] = useState<number>(
@@ -51,11 +54,14 @@ export default function Library() {
     dispatch(fetchBooks());
   }, [dispatch]);
 
-  const filteredBooks = useMemo(() => {
-    const tags = tagsParam ? tagsParam.split(',').map(tag => decodeURIComponent(tag)) : [];
+  const preparedBooks = useMemo(() => {
+    let sortedBooks;
+    const tags = tagsParam
+      ? tagsParam.split(",").map((tag) => decodeURIComponent(tag))
+      : [];
     const startBooks = [...books];
 
-    const result = startBooks.filter((book) => {
+    const filteredBooks = startBooks.filter((book) => {
       const searchString = searchParam.toLowerCase();
 
       const matchesSearch =
@@ -66,26 +72,44 @@ export default function Library() {
         book.genres.includes(genreParam) || genreParam === "All";
 
       const matchesTags =
-        tags.length === 0 ||
-        tags.every((tag) => book.tags.includes(tag));
+        tags.length === 0 || tags.every((tag) => book.tags.includes(tag));
 
       return matchesSearch && matchesGenre && matchesTags;
     });
 
-    return result;
-  }, [tagsParam, books, searchParam, genreParam]);
+    switch (getSort) {
+      case Sort.alphabet:
+        sortedBooks = [...filteredBooks].sort((p1, p2) =>
+          p1[getSort].localeCompare(p2[getSort])
+        );
+        break;
+      case Sort.newest:
+        sortedBooks = [...filteredBooks].sort((p1, p2) => p2.id - p1.id);
+        break;
+      case Sort.rating:
+        sortedBooks = [...filteredBooks].sort(
+          (p1, p2) => p1.averageRating - p2.averageRating
+        );
+        break;
+
+      default:
+        return filteredBooks;
+    }
+
+    return sortedBooks || filteredBooks;
+  }, [getSort, tagsParam, books, searchParam, genreParam]);
 
   useEffect(() => {
     const loadBooks = () => {
       const start = (Number(page) - 1) * ITEMS_PER_PAGE;
       const end = start + ITEMS_PER_PAGE;
 
-      setPageCount(Math.ceil(filteredBooks.length / ITEMS_PER_PAGE));
-      setCurrentBooks(filteredBooks.slice(start, end));
+      setPageCount(Math.ceil(preparedBooks.length / ITEMS_PER_PAGE));
+      setCurrentBooks(preparedBooks.slice(start, end));
     };
 
     loadBooks();
-  }, [page, filteredBooks]);
+  }, [page, preparedBooks]);
 
   const genres = useMemo(() => {
     const allGenres = books.flatMap((book) => book.genres);
@@ -121,7 +145,7 @@ export default function Library() {
       search: searchQuery,
       page: "1",
       genre: activeGenre,
-      tags: selectedTags.map(tag => encodeURIComponent(tag)).join(","),
+      tags: selectedTags.map((tag) => encodeURIComponent(tag)).join(","),
     });
     router.push(`/library?${newParams}`, { scroll: false });
   };
@@ -168,7 +192,9 @@ export default function Library() {
             variant="contained"
             color="secondary"
             onClick={handleFilter}
-            endIcon={!isFilterMenuOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+            endIcon={
+              !isFilterMenuOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />
+            }
           >
             Filter
           </Button>
@@ -221,6 +247,13 @@ export default function Library() {
             </div>
           </div>
         )}
+        <div className={styles.dropdownWrapper}>
+          <DropDown
+            currentOption={getSort}
+            searchName="sort"
+            options={sortObj}
+          />
+        </div>
         <div className={styles.books}>
           {currentBooks.map((book) => (
             <LibraryItem key={book.id} book={book} />

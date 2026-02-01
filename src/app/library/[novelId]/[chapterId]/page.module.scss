@@ -1,0 +1,43 @@
+@import "../../../../variables.scss";
+
+.chapterHeader {
+  display: flex;
+  padding: 20px 15px;
+  align-items: center;
+  border-bottom: 1px solid $neutral-800;
+  border-top: 1px solid $neutral-800;
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 6px;
+  font-weight: bold;
+
+  &:hover {
+    color: $button;
+  }
+}
+
+.chapterButtons {
+  display: flex;
+  justify-content: center;
+  gap: 16px; /* Расстояние между кнопками */
+  margin: 30px 0;
+}
+
+.chapterWrapper {
+  margin-top: 45px;
+}
+
+.chapterContent {
+  margin-top: 35px;
+}
+
+.chapterTitle {
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+}
+

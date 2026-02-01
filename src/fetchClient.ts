@@ -44,7 +44,7 @@
 //   delete: (url: string) => request(url, 'DELETE'),
 // };
 
-const BASE_URL_API = 'http://localhost:3000';
+const BASE_URL_API = 'http://localhost:3001';
 
 // A promise resolved after a given delay
 function wait(delay: number) {
@@ -82,7 +82,7 @@ function request<T>(
   }
 
   // Emulate a delay to test loaders
-  return wait(0)
+  return wait(100)
     .then(() => fetch(BASE_URL_API + url, options))
     .then(response => {
       if (response.ok) {

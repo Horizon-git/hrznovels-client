@@ -2,10 +2,10 @@
 
 import Container from '@/components/Container/Container'
 import React, { useEffect, useState } from 'react'
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
-import StarIcon from '@mui/icons-material/Star'
+import { Box } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchBookmarks } from '@/features/bookmarksSlice';
+import styles from './page.module.scss';
 import BookmarksCard from '@/components/BookmarksCard/BookmarksCard'
 
 export default function Bookmarks() {
@@ -24,6 +24,7 @@ export default function Bookmarks() {
 
   return (
     <Container>
+      <h1 className={styles.title}>{`My bookmarks (${bookmarks.length})`}</h1>
       <Box
         display="flex"
         flexWrap="wrap"

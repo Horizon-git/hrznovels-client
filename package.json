@@ -17,6 +17,7 @@
     "@mui/material-nextjs": "^5.16.6",
     "@reduxjs/toolkit": "^2.2.7",
     "bcryptjs": "^2.4.3",
+    "classnames": "^2.5.1",
     "next": "14.2.5",
     "next-redux-wrapper": "^8.1.0",
     "react": "^18",

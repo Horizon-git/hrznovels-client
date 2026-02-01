@@ -3,6 +3,7 @@ import booksReducer from '../features/booksSlice';
 import bookDetailsReducer from '../features/bookDetailsSlice';
 import authReducer from '../features/authSlice';
 import bookmarksReducer from '../features/bookmarksSlice';
+import chapterDetailsReducer from '../features/chapterDetailsSlice';
 
 export const makeStore = () =>
   configureStore({
@@ -11,6 +12,7 @@ export const makeStore = () =>
       bookDetails: bookDetailsReducer,
       auth: authReducer,
       bookmarks: bookmarksReducer,
+      chapterDetails: chapterDetailsReducer,
     },
   });
 

@@ -12,7 +12,6 @@ export interface BookDetails {
 export interface Chapter {
   id: number;
   title: string;
-  content: string;
   createdAt: string;
   chapterNumber: number;
 }
