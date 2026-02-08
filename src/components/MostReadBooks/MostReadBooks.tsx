@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from './MostReadBooks.module.scss';
 import Container from '../Container/Container';
-import { books2 } from '@/data/books';
+
 import MostReadList from '../MostReadList/MostReadList';
 import { BookCard } from '@/types/Book';
 
