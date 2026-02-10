@@ -4,6 +4,8 @@ import Image from "next/image";
 import { BookCard } from "@/types/Book";
 import Chips from "../Chips/Chips";
 import Link from "next/link";
+import StarIcon from "@mui/icons-material/Star";
+import { timeSince } from "@/helpers/timeSince";
 
 type Props = {
   book: BookCard;
@@ -24,7 +26,14 @@ export default function LibraryItem({ book }: Props) {
           <Link href={`/library/${book.id}`}>
             <h1 className={styles.title}>{book.name}</h1>
           </Link>
-          <span>Updated {5} days ago</span>
+          <span>{`Last update: ${timeSince(book.lastUpdate)}`}</span>
+          <div className={styles.cardRating}>
+            <StarIcon
+              sx={{ color: "#FFD700", marginRight: 0.5 }}
+              fontSize="small"
+            />
+            <span>{`${book.averageRating} (${book.reviewCount} reviews)`}</span>
+          </div>
           <p>{book.description}</p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Container from "@/components/Container/Container";
 import styles from "./page.module.scss";
@@ -13,7 +13,6 @@ import {
   SyntheticEvent,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -25,6 +24,8 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchBooks } from "@/features/booksSlice";
 import { Sort, sortObj } from "@/types/Sort";
 import { DropDown } from "@/components/DropDown/DropDown";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -39,19 +40,29 @@ export default function LibraryContent() {
   const genreParam = searchParams.get("genre") || "All";
   const tagsParam = searchParams.get("tags") || "";
   const getSort = searchParams.get("sort") || "";
+  const sortDirectionParam =
+    (searchParams.get("sortDirection") as "asc" | "desc" | null) || "asc";
 
   const [currentBooks, setCurrentBooks] = useState<BookCard[]>([]);
   const [pageCount, setPageCount] = useState<number>(
-    Math.ceil(books.length / ITEMS_PER_PAGE)
+    Math.ceil(books.length / ITEMS_PER_PAGE),
   );
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState<boolean>(false);
   const [activeGenre, setActiveGenre] = useState<string>("All");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">(
+    sortDirectionParam,
+  );
 
   useEffect(() => {
     dispatch(fetchBooks());
   }, [dispatch]);
+
+  const updateQuery = (overrides: Record<string, string>) => {
+    const newParams = getSearchWith(searchParams, overrides);
+    router.push(`/library?${newParams}`, { scroll: false });
+  };
 
   const preparedBooks = useMemo(() => {
     let sortedBooks;
@@ -76,18 +87,31 @@ export default function LibraryContent() {
       return matchesSearch && matchesGenre && matchesTags;
     });
 
+    const directionMultiplier = sortDirection === "asc" ? 1 : -1;
+
     switch (getSort) {
       case Sort.alphabet:
-        sortedBooks = [...filteredBooks].sort((p1, p2) =>
-          p1[getSort].localeCompare(p2[getSort])
+        sortedBooks = [...filteredBooks].sort(
+          (p1, p2) => p1.name.localeCompare(p2.name) * directionMultiplier,
         );
         break;
-      case Sort.newest:
-        sortedBooks = [...filteredBooks].sort((p1, p2) => p2.id - p1.id);
+      case Sort.addition:
+        sortedBooks = [...filteredBooks].sort(
+          (p1, p2) => (p1.id - p2.id) * directionMultiplier,
+        );
         break;
+      case Sort.update: {
+        sortedBooks = [...filteredBooks].sort((p1, p2) => {
+          const t1 = new Date(p1.lastUpdate).getTime();
+          const t2 = new Date(p2.lastUpdate).getTime();
+          return (t1 - t2) * directionMultiplier;
+        });
+        break;
+      }
       case Sort.rating:
         sortedBooks = [...filteredBooks].sort(
-          (p1, p2) => p1.averageRating - p2.averageRating
+          (p1, p2) =>
+            (p1.averageRating - p2.averageRating) * directionMultiplier,
         );
         break;
 
@@ -96,7 +120,7 @@ export default function LibraryContent() {
     }
 
     return sortedBooks || filteredBooks;
-  }, [getSort, tagsParam, books, searchParam, genreParam]);
+  }, [getSort, tagsParam, books, searchParam, genreParam, sortDirection]);
 
   useEffect(() => {
     const loadBooks = () => {
@@ -121,13 +145,14 @@ export default function LibraryContent() {
   }, [books]);
 
   const handlePageChange = (event: ChangeEvent<unknown>, page: number) => {
-    const newParams = getSearchWith(searchParams, {
+    updateQuery({
       page: page.toString(),
       search: searchQuery,
       genre: activeGenre,
       tags: selectedTags.join(","),
+      sortDirection,
+      sort: getSort,
     });
-    router.push(`/library?${newParams}`, { scroll: false });
 
     window.scrollTo({
       top: 0,
@@ -140,13 +165,14 @@ export default function LibraryContent() {
   };
 
   const handleSearchSubmit = () => {
-    const newParams = getSearchWith(searchParams, {
+    updateQuery({
       search: searchQuery,
       page: "1",
       genre: activeGenre,
       tags: selectedTags.map((tag) => encodeURIComponent(tag)).join(","),
+      sortDirection,
+      sort: getSort,
     });
-    router.push(`/library?${newParams}`, { scroll: false });
   };
 
   const handleFilter = () => {
@@ -159,9 +185,22 @@ export default function LibraryContent() {
 
   const handleTagsChange = (
     event: SyntheticEvent<Element, Event>,
-    newValue: string[]
+    newValue: string[],
   ) => {
     setSelectedTags(newValue);
+  };
+
+  const handleSortDirectionToggle = (nextDirection: "asc" | "desc") => {
+    setSortDirection(nextDirection);
+
+    updateQuery({
+      sort: getSort,
+      sortDirection: nextDirection,
+      page: "1",
+      search: searchParam,
+      genre: genreParam,
+      tags: tagsParam,
+    });
   };
 
   if (loading) return <div>Loading...</div>;
@@ -198,6 +237,7 @@ export default function LibraryContent() {
             Filter
           </Button>
         </div>
+
         {isFilterMenuOpen && (
           <div className={styles.filterMenu}>
             <div className={styles.genresBlock}>
@@ -246,18 +286,35 @@ export default function LibraryContent() {
             </div>
           </div>
         )}
+
         <div className={styles.dropdownWrapper}>
           <DropDown
             currentOption={getSort}
             searchName="sort"
             options={sortObj}
           />
+
+          <ToggleButtonGroup
+            value={sortDirection}
+            exclusive
+            onChange={(_, nextDirection) => {
+              if (!nextDirection) return;
+              handleSortDirectionToggle(nextDirection);
+            }}
+            size="small"
+            className={styles.sortDirectionToggleGroup}
+          >
+            <ToggleButton value="asc">ASC</ToggleButton>
+            <ToggleButton value="desc">DESC</ToggleButton>
+          </ToggleButtonGroup>
         </div>
+
         <div className={styles.books}>
           {currentBooks.map((book) => (
             <LibraryItem key={book.id} book={book} />
           ))}
         </div>
+
         <Pagination
           count={pageCount}
           page={Number(page)}

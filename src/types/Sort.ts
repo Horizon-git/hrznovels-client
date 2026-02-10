@@ -1,13 +1,19 @@
 export enum Sort {
-  newest = 'age',
+  addition = 'additionDate',
+  update = 'updateDate',
   rating = 'averageRating',
   alphabet = 'name',
+
 }
 
 export const sortObj = [
   {
-    label: 'Newest',
-    value: 'age',
+    label: 'Addition date',
+    value: 'additionDate',
+  },
+  {
+    label: 'Update date',
+    value: 'updateDate',
   },
   {
     label: 'Rating',

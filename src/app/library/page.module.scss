@@ -111,3 +111,23 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.sortDirectionToggleGroup {
+  margin-left: 10px;
+
+  :global(.MuiToggleButton-root) {
+    color: #fff;
+    border-color: #fcf8ed17;
+    text-transform: none;
+    padding-inline: 14px;
+  }
+
+  :global(.MuiToggleButton-root.Mui-selected) {
+    background-color: $button;
+    color: $main-light;
+  }
+
+  :global(.MuiToggleButton-root.Mui-selected:hover) {
+    background-color: $button;
+  }
+}

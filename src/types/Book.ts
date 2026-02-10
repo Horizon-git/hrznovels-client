@@ -6,6 +6,7 @@ export interface BookCard {
   genres: string[];
   tags: string[];
   averageRating: number;
+  reviewCount: number;
   chapterCount: number;
   lastUpdate: string;
 }
