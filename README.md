@@ -1,9 +1,9 @@
 <p>A web application for reading and discovering Chinese web novels (donghua/xianxia). Users can browse novels by genre and tags, read chapters, leave reviews and ratings, and bookmark their favorite stories.</p>
 
-<h1><a href="YOUR_VERCEL_LINK_HERE">LIVE DEMO</a></h1>
+<h1><a href="https://hrznovels-client.vercel.app/">LIVE DEMO</a></h1>
 <p>(Backend hosted on Render.com — initial load may take a moment)</p>
 
-<h1><a href="https://github.com/YOUR_USERNAME/hrznovels-server">SERVER REPO</a></h1>
+<h1><a href="https://github.com/horizon-git/hrznovels-server">SERVER REPO</a></h1>
 
 # Features
 <ul>
