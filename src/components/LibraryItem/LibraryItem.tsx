@@ -6,6 +6,7 @@ import Chips from "../Chips/Chips";
 import Link from "next/link";
 import StarIcon from "@mui/icons-material/Star";
 import { timeSince } from "@/helpers/timeSince";
+import { ApiImage } from "../ApiImage/ApiImage";
 
 type Props = {
   book: BookCard;
@@ -15,9 +16,9 @@ export default function LibraryItem({ book }: Props) {
   return (
     <div className={styles.item}>
       <div className={styles.left}>
-        <Image
+        <ApiImage
           className={styles.image}
-          src="/images/image1.webp"
+          srcPath={book.imageUrl}
           alt={book.name}
           width={160}
           height={240}

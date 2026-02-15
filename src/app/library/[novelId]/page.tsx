@@ -16,6 +16,7 @@ import { timeSince } from "@/helpers/timeSince";
 import RatingStars from "@/components/RatingStars/RatingStars";
 import ReviewModal from "@/components/ReviewModal/ReviewModal";
 import { fetchBookmarks, toggleBookmarkAsync } from "@/features/bookmarksSlice";
+import { ApiImage } from "@/components/ApiImage/ApiImage";
 
 enum Tab {
   Chapters,
@@ -68,8 +69,8 @@ export default function Novel() {
       {bookDetails ? (
         <>
           <div className={styles.mainInfo}>
-            <Image
-              src="/images/image1.webp"
+            <ApiImage
+              srcPath={bookDetails.imageUrl}
               alt={bookDetails.name}
               width={300}
               height={400}

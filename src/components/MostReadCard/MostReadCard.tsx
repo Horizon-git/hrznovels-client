@@ -1,9 +1,9 @@
 import { BookCard } from "@/types/Book";
 import React from "react";
 import styles from "./MostReadCard.module.scss";
-import Image from "next/image";
 import StarIcon from "@mui/icons-material/Star";
 import Link from "next/link";
+import { ApiImage } from "../ApiImage/ApiImage";
 
 type Props = {
   book: BookCard;
@@ -13,8 +13,8 @@ type Props = {
 export default function MostReadCard({ book, id }: Props) {
   return (
     <div className={styles.card}>
-      <Image
-        src="/images/image1.webp"
+      <ApiImage
+        srcPath={book.imageUrl}
         alt={book.name}
         width={115}
         height={160}

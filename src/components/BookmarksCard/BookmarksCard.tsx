@@ -4,6 +4,7 @@ import Image from "next/image";
 import StarIcon from "@mui/icons-material/Star";
 import { Bookmark } from "@/types/Bookmark";
 import Link from "next/link";
+import { ApiImage } from "../ApiImage/ApiImage";
 
 type Props = {
   bookmark: Bookmark;
@@ -13,8 +14,8 @@ export default function BookmarksCard({ bookmark }: Props) {
   return (
     <Link href={`/library/${bookmark.book_id}`}>
       <div className={styles.card}>
-        <Image
-          src="/images/image1.webp"
+        <ApiImage
+          srcPath={bookmark.image}
           alt={bookmark.name}
           width={115}
           height={160}

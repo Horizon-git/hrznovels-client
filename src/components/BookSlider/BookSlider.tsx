@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import { BookCard } from "@/types/Book";
 import Link from "next/link";
 import { timeSince } from "@/helpers/timeSince";
+import { ApiImage } from "../ApiImage/ApiImage";
 
 type Props = {
   title: string;
@@ -48,8 +49,8 @@ export default function BookSlider({ title, books }: Props) {
           <SwiperSlide key={book.id}>
             <Link href={`/library/${book.id}`}>
               <div className={styles.card}>
-                <Image
-                  src="/images/image1.webp"
+                <ApiImage
+                  srcPath={book.imageUrl}
                   alt={book.name}
                   width={150}
                   height={220}

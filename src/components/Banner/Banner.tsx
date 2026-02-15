@@ -12,6 +12,7 @@ import Chips from "../Chips/Chips";
 import { BookCard } from "@/types/Book";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchBookmarks, toggleBookmarkAsync } from "@/features/bookmarksSlice";
+import { ApiImage } from "../ApiImage/ApiImage";
 
 type Props = {
   books: BookCard[],
@@ -80,9 +81,9 @@ function Item({ item }: PropsItem) {
               </div>
             </div>
           </div>
-          <Image
+          <ApiImage
             className={styles.image}
-            src="/images/image1.webp"
+            srcPath={item.imageUrl}
             alt={item.name}
             width={195}
             height={260}
